@@ -1,5 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 
+//DB connection
+import dbConnection from '../db/connection';
+
 //Routes
 import productRoutes from '../routes/product';
 
@@ -13,6 +16,7 @@ export class Server {
         this.midlewares();
         this.listen();
         this.routes();
+        this.dbConnection();
     }
 
     public listen() {
@@ -32,5 +36,15 @@ export class Server {
     public midlewares() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
+    }
+
+    public async dbConnection() {
+        try {
+            await dbConnection.authenticate();
+            console.log('Database connected');
+        } catch (error) {
+            console.error('Unable to connect to the database:', error)
+        }
+        
     }
 }
