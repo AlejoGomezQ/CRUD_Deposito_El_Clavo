@@ -20,6 +20,10 @@ export class ProductService {
    }
 
    public getProductsList(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`)
+    return this.http.get<Product[]>(`${this.myAppUrl}${this.myApiUrl}`);
+  }
+
+  public deleteProductById(id: number ): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id}`);
   }
 }

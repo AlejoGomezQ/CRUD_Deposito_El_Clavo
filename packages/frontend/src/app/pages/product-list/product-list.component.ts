@@ -6,6 +6,7 @@ import { ProductsTableComponent } from '../../components/products-table/products
 
 //Services
 import { ProductService } from '../../services/product.service';
+import { Product } from '../../interfaces/product';
 
 @Component({
     selector: 'app-product-list',
@@ -17,13 +18,23 @@ import { ProductService } from '../../services/product.service';
 export class ProductListComponent implements OnInit {
   private productService: ProductService = inject(ProductService);
 
+  public productList: Product[] = []
+
   ngOnInit(): void {
     this.getProductList();
   }
 
-  getProductList(): void {
-    this.productService.getProductsList().subscribe(data => {
-      console.log(data);
+  public getProductList(): void {
+    this.productService.getProductsList().subscribe({
+      next: (data: Product[]) => this.productList = data,
+      error: err => console.error('Ocurrio un error al obtener la lista de productos' ,err)
+    })
+  }
+
+  public deleteProduct(id: number): void {
+    this.productService.deleteProductById(id).subscribe({
+      next: () => this.getProductList(),
+      error: err => console.error('Ocurrio un error al intertar borrar el producto', err)
     })
   }
 }
