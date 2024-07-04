@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 //Components
 import { ProductsTableComponent } from '../../components/products-table/products-table.component';
 
-//Interfaces
-import { Product } from '../../interfaces/product';
-import { RouterModule } from '@angular/router';
+//Services
+import { ProductService } from '../../services/product.service';
 
 @Component({
     selector: 'app-product-list',
@@ -14,28 +14,16 @@ import { RouterModule } from '@angular/router';
     styleUrl: './product-list.component.css',
     imports: [ProductsTableComponent, RouterModule]
 })
-export class ProductListComponent {
-  public productsList: Product[] = [
-    {
-        id: 1,
-        name: "Martillo",
-        description: "Ferreteria",
-        price: 8500,
-        stock: 10
-    },
-    {
-        id: 2,
-        name: "Taladro",
-        description: "Ferreteria",
-        price: 250000,
-        stock: 3
-    },
-    {
-        id: 3,
-        name: "Destornillador",
-        description: "Ferreteria",
-        price: 5000,
-        stock: 5
-    },
-  ]
+export class ProductListComponent implements OnInit {
+  private productService: ProductService = inject(ProductService);
+
+  ngOnInit(): void {
+    this.getProductList();
+  }
+
+  getProductList(): void {
+    this.productService.getProductsList().subscribe(data => {
+      console.log(data);
+    })
+  }
 }
