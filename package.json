@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "workspaces": [
-    "packages/*"],
+    "packages/*"
+  ],
   "scripts": {
     "co": "sui-mono commit",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +14,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@s-ui/mono": "^2.45.0"
+    "@s-ui/mono": "^2.45.0",
+    "@types/cors": "^2.8.17"
   }
 }
