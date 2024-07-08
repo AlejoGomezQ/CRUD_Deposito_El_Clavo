@@ -15,6 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(), 
     provideHttpClient(withFetch()),
     provideAnimations(),
-    provideToastr()
+    provideToastr({
+      positionClass: 'toast-bottom-rigth',
+      preventDuplicates: true
+    })
   ]
 };

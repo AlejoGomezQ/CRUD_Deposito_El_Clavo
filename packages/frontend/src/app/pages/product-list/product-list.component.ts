@@ -1,12 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 //Components
 import { ProductsTableComponent } from '../../components/products-table/products-table.component';
 
 //Services
 import { ProductService } from '../../services/product.service';
+
+//Interfaces
 import { Product } from '../../interfaces/product';
+
 
 @Component({
     selector: 'app-product-list',
@@ -17,6 +21,7 @@ import { Product } from '../../interfaces/product';
 })
 export class ProductListComponent implements OnInit {
   private productService: ProductService = inject(ProductService);
+  private toastr: ToastrService = inject(ToastrService);
 
   public productList: Product[] = []
 
@@ -33,7 +38,10 @@ export class ProductListComponent implements OnInit {
 
   public deleteProduct(id: number): void {
     this.productService.deleteProductById(id).subscribe({
-      next: () => this.getProductList(),
+      next: () => {
+        this.getProductList();
+        this.toastr.warning('El producto fue eliminado con exito', 'Producto eliminado');
+      },
       error: err => console.error('Ocurrio un error al intertar borrar el producto', err)
     })
   }

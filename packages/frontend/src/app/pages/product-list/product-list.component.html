@@ -6,5 +6,10 @@
             routerLink="/agregar-producto">
             Agregar producto</button>
     </div>
+
+    @if (productList.length > 0) {
     <products-table [productsList]="productList" [deleteProduct]="deleteProduct" />
+    } @else {
+    <h5>No hay productos disponibles</h5>
+    }
 </main>
