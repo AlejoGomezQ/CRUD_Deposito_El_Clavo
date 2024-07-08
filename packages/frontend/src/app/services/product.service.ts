@@ -33,4 +33,15 @@ export class ProductService {
       product
     );
   }
+
+  public getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.myAppUrl}${this.myApiUrl}${id}`);
+  }
+
+  public updateProduct(id: number, product: Product): Observable<void> {
+    return this.http.put<void>(
+      `${this.myAppUrl}${this.myApiUrl}${product.id}`, 
+      product
+    )
+  }
 }

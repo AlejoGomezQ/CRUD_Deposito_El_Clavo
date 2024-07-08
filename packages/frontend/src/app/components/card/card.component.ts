@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormComponent } from "../form/form.component";
 
 @Component({
@@ -8,6 +8,12 @@ import { FormComponent } from "../form/form.component";
     styleUrl: './card.component.css',
     imports: [FormComponent]
 })
-export class CardComponent {
+export class CardComponent implements AfterViewInit {
+    @ViewChild(FormComponent) formComponent!: FormComponent;
 
+    public formTitle: string | undefined;;
+
+    ngAfterViewInit(): void {
+        this.formTitle = this.formComponent.formTitle;
+    }
 }
